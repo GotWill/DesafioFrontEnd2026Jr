@@ -4,7 +4,7 @@ Obrigado por se interessar em participar do teste para desenvolvedor Front-end d
 
 ## O que estamos procurando
 
-Procuramos alguém para participar do nosso time de desenvolvimento, trazendo expertise na parte de interface de usuário - com domínio e controle do CSS, técnicas de design responsivo, usabilidade e acessibilidade - e com conhecimento em react.js para poder trabalhar na base de código utilizada na empresa.
+Procuramos alguém para participar do nosso time de desenvolvimento, trazendo expertise na parte de interface de usuário - com domínio e controle do CSS, técnicas de design responsivo, usabilidade e acessibilidade - e com conhecimento em react.js/typescript para poder trabalhar na base de código utilizada na empresa.
 
 ## O que será avaliado no desafio
 
@@ -41,7 +41,7 @@ Dark ou Light).
 2. O componente 1 deve:
    1. Ao clicar apresentar um menu para que possa ser feito o Logout.
 3. O componente 2 deve:
-   1. Listar a arvore de menu a partir dos items obtidos pela api: <http://my-json-server.typicode.com/EnkiGroup/DesafioLayoutEnContact/menus>
+   1. Listar a arvore de menu a partir dos items obtidos pela api: <http://my-json-server.typicode.com/EnkiGroup/DesafioFrontEnd2026Jr/menus>
       1. Exemplo:
       * Menu
         * subMenu
@@ -53,7 +53,7 @@ Dark ou Light).
    1. Ao clicar no botão "Arquivar" os itens selecionados do componente 4 devem ser removidos da listagem.
 5. O componente 4 deve:
    1. Apresentar os dados relacionados ao item selecionado no componente 2, através da api:
-      ➡️ <http://my-json-server.typicode.com/EnkiGroup/DesafioReactEncontact/items/{id> do subMenu}
+      ➡️ <http://my-json-server.typicode.com/EnkiGroup/DesafioFrontEnd2026Jr/items/{id> do subMenu}
    2. Cada item (Card) deve apresentar as seguintes informações (Exemplo utilizando o primeiro item da imagem):
       1. Name (José Ronaldo -> Primeiro texto)
       2. Subject (Boa tarde, como vai você? -> Segundo texto)
@@ -63,7 +63,8 @@ Dark ou Light).
    3. Quando o usuário passar o mouse sobre a linha, deve ser apresentada a opção de selecionar o item da lista (Apresentar um checkbox no lugar das iniciais do Owner).
    4. Ao selecionar o item, todas as Iniciais devem ser apresentadas como opção de seleção para permitir múltiplas escolhas.
    5. Ao desmarcar todas as opções, o sistema deve voltar a apresentar as Iniciais.
-   6. OBS: Segue um exemplo visual do comportamento desejado extraído de um e-mail Office365:
+   6. Adicione qualquer funcionalidade ou melhoria adicional, seja criativo e indice no Pull Request qual foi a funcionalidade adicional. Nos surpreenda :-)
+   7. OBS: Segue um exemplo visual do comportamento desejado extraído de um e-mail Office365:
 
 ![Barra listagem](barra-office365.gif)
 
