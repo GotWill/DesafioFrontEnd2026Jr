@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -16,15 +16,17 @@ import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { userContext } from "@/context/user";
+import { useNavigate } from "react-router-dom";
 
 const formScherma = z.object({
   email: z.email({ error: "E-mail inválido." }),
   password: z.string().min(6, "O mínimo de caracteres é 8."),
 });
-
 const LoginForm = () => {
   const [isLoading, setIsloading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   type FormSchema = z.infer<typeof formScherma>;
 
@@ -36,8 +38,14 @@ const LoginForm = () => {
     },
   });
 
+  const { setUser } = useContext(userContext);
+
   const handleForm = (data: FormSchema) => {
     setIsloading(true);
+    setTimeout(() => {
+      setUser({ email: data.email });
+      navigate("/");
+    }, 2000);
   };
 
   return (
