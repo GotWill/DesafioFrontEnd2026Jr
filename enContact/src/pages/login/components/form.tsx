@@ -18,6 +18,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { userContext } from "@/context/user";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const formScherma = z.object({
   email: z.email({ error: "E-mail inválido." }),
@@ -40,12 +41,17 @@ const LoginForm = () => {
 
   const { setUser } = useContext(userContext);
 
-  const handleForm = (data: FormSchema) => {
-    setIsloading(true);
-    setTimeout(() => {
-      setUser({ email: data.email });
-      navigate("/");
-    }, 2000);
+  const handleForm = ({ email, password }: FormSchema) => {
+    if (email === "admin@gmail.com" && password === "12345678") {
+      setIsloading(true);
+      setTimeout(() => {
+        setUser({ email });
+        navigate("/");
+      }, 2000);
+      return;
+    }
+
+    toast.error("Usuário ou senha inválidos.");
   };
 
   return (
