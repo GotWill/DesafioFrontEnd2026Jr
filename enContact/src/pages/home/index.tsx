@@ -16,6 +16,7 @@ import AccountList from "./components/account-list";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Skeleton } from "@/components/ui/skeleton";
+import MainDashboard from "./components/main-dashboard";
 
 interface MessageReponse {
   id: number;
@@ -120,9 +121,7 @@ const Home = () => {
       <ResizableHandle withHandle />
 
       <ResizablePanel defaultSize={80}>
-        <main className="flex h-full items-center justify-center p-6">
-          <h1 className="text-zinc-400">Conteúdo Principal</h1>
-        </main>
+        <MainDashboard/>
       </ResizablePanel>
     </ResizablePanelGroup>
   );
