@@ -54,6 +54,7 @@ const MainDashboard = () => {
     },
   ]);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  const [allChecked, setIsAllChecked] = useState(false);
   const isSelectionMode = selectedIds.length > 0;
 
   const handleSelect = (id: number) => {
@@ -73,6 +74,16 @@ const MainDashboard = () => {
     setSelectedIds([]);
   };
 
+  const handleAllCheckedMessages = () => {
+    const newValue = !allChecked;
+    setIsAllChecked(newValue);
+    if (newValue) {
+      setSelectedIds(messages.map((item) => item.id));
+    } else {
+      setSelectedIds([]);
+    }
+  };
+
   return (
     <div>
       <div className="w-full  p-4 space-y-4 bg-white border border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
@@ -88,7 +99,11 @@ const MainDashboard = () => {
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Checkbox className="h-5 w-5 border-2 border-black rounded-none data-[state=checked]:bg-black" />
+            <Checkbox
+              className="h-5 w-5 border-2 border-black rounded-none data-[state=checked]:bg-black"
+              checked={allChecked}
+              onCheckedChange={handleAllCheckedMessages}
+            />
             <div className="flex items-center gap-2">
               <Button
                 variant="outline"
@@ -127,6 +142,7 @@ const MainDashboard = () => {
             message={message}
             isSelectionMode={isSelectionMode}
             handleSetItem={handleSelect}
+            selectedIds={selectedIds}
           />
         ))}
       </div>

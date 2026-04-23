@@ -1,7 +1,6 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { MessageSquareMore } from "lucide-react";
-import { useState } from "react";
 
 interface MessageItemProps {
   message: {
@@ -13,6 +12,7 @@ interface MessageItemProps {
     count?: number;
     avatarsCount: number;
   };
+  selectedIds: number[];
   isSelectionMode: boolean;
   handleSetItem: (id: number) => void;
 }
@@ -21,12 +21,13 @@ const MessageList = ({
   message,
   isSelectionMode,
   handleSetItem,
+  selectedIds,
 }: MessageItemProps) => {
-  const [checked, setChecked] = useState(false);
+  const checked = selectedIds.includes(message.id);
 
   return (
     <div
-      className={`flex w-full h-[100px] gap-3 p-3 border-b-2 border-black hover transition-colors  group ${checked ? "bg-green-800 text-white" : "hover:bg-green-600 hover:text-white"}`}
+      className={`flex w-full h-[100px] gap-3 p-3 border-b-2 border-black hover transition-colors  group ${checked ? "bg-green-600 text-white" : "hover:bg-green-500 hover:text-white"}`}
     >
       <div className="flex-shrink-0">
         {!isSelectionMode && (
@@ -40,10 +41,9 @@ const MessageList = ({
         <Checkbox
           checked={checked}
           onCheckedChange={() => {
-            setChecked(!checked);
             handleSetItem(message.id);
           }}
-          className={`hidden rounded-full h-8 w-8  ${isSelectionMode ? "block" : "hidden group-hover:block"} `}
+          className={`hidden rounded-full h-8 w-8  ${isSelectionMode ? "block" : "hidden group-hover:block"} data-[state=checked]:bg-green-950`}
         />
       </div>
 
@@ -64,7 +64,7 @@ const MessageList = ({
             )}
             <p className="text-sm font-medium truncate">{message.subject}</p>
           </div>
-          <span className="text-[11px] font-bold text-zinc-500">-2 horas</span>
+          <span className={`text-[11px] font-bold  ${checked ? 'text-white' : 'text-zinc-500 group-hover:text-white'}`}>-2 horas</span>
         </div>
 
         <div className="flex justify-between items-end">
