@@ -17,6 +17,9 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Skeleton } from "@/components/ui/skeleton";
 import MainDashboard from "./components/main-dashboard";
+import { useContext, useEffect } from "react";
+import { userContext } from "@/context/user";
+import { useNavigate } from "react-router-dom";
 
 interface MessageReponse {
   id: number;
@@ -28,6 +31,9 @@ interface MessageReponse {
 }
 
 const Home = () => {
+  const { logout, isAutentincated } = useContext(userContext);
+  const navigate = useNavigate();
+
   const { data, isLoading } = useQuery({
     queryKey: ["accounts"],
     queryFn: async () => {
@@ -41,7 +47,18 @@ const Home = () => {
         items: menu.subMenus,
       }));
     },
+    enabled: !!isAutentincated,
   });
+
+  useEffect(() => {
+    if (!isAutentincated) {
+      navigate("/login");
+    }
+  }, [isAutentincated, navigate]);
+
+  if (!isAutentincated) {
+    return null;
+  }
 
   return (
     <ResizablePanelGroup
@@ -66,7 +83,7 @@ const Home = () => {
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem className="text-destructive">
+                <DropdownMenuItem className="text-destructive" onClick={logout}>
                   Sair
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -121,7 +138,7 @@ const Home = () => {
       <ResizableHandle withHandle />
 
       <ResizablePanel defaultSize={80}>
-        <MainDashboard/>
+        <MainDashboard />
       </ResizablePanel>
     </ResizablePanelGroup>
   );
