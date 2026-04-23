@@ -86,7 +86,7 @@ const MainDashboard = () => {
 
   return (
     <div>
-      <div className="w-full  p-4 space-y-4 bg-white border border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+      <div className="w-full  p-4 space-y-4 bg-white dark:bg-transparent border border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
         <div className="relative">
           <Input
             placeholder="Pesquisar"
@@ -100,14 +100,14 @@ const MainDashboard = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Checkbox
-              className="h-5 w-5 border-2 border-black rounded-none data-[state=checked]:bg-black"
+              className="h-5 w-5 border-2 border-black rounded-none data-[state=checked]:bg-black dark:border-white"
               checked={allChecked}
               onCheckedChange={handleAllCheckedMessages}
             />
             <div className="flex items-center gap-2">
               <Button
                 variant="outline"
-                className="border-2 border-black rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all font-bold"
+                className="border-2 border-black dark:border-white rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all font-bold "
               >
                 Atribuir
               </Button>
@@ -115,14 +115,14 @@ const MainDashboard = () => {
               <Button
                 onClick={() => handleRemoveItens(selectedIds)}
                 variant="outline"
-                className="border-2 border-black rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all font-bold"
+                className="border-2 border-black dark:border-white rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all font-bold"
               >
                 Arquivar
               </Button>
 
               <Button
                 variant="outline"
-                className="border-2 border-black rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all font-bold"
+                className="border-2 border-black dark:border-white rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all font-bold"
               >
                 Agendar
               </Button>
@@ -135,7 +135,7 @@ const MainDashboard = () => {
         </div>
       </div>
 
-      <div className="flex flex-col w-full bg-white border-2 border-black">
+      <div className="flex flex-col w-full bg-white dark:bg-transparent border-2 border-black">
         {messages.map((message) => (
           <MessageList
             key={message.id}
