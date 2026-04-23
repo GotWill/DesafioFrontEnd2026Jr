@@ -1,17 +1,10 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ChevronDown, Moon, MoreVertical, Sun } from "lucide-react";
+import { MoreVertical } from "lucide-react";
 import AccountList from "./components/account-list";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -20,8 +13,8 @@ import MainDashboard from "./components/main-dashboard";
 import { useContext, useEffect } from "react";
 import { userContext } from "@/context/user";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { useTheme } from "@/providers/theme-provider";
+import DropdownTheme from "./components/dropdown-theme";
+import DropdownHeader from "./components/dropdown-header";
 
 interface MessageReponse {
   id: number;
@@ -33,8 +26,7 @@ interface MessageReponse {
 }
 
 const Home = () => {
-  const { logout, isAutentincated } = useContext(userContext);
-  const { setTheme } = useTheme();
+  const { isAutentincated } = useContext(userContext);
 
   const navigate = useNavigate();
 
@@ -76,28 +68,7 @@ const Home = () => {
         className="bg-white dark:bg-background"
       >
         <aside className="flex h-full flex-col p-4">
-          <div className="flex items-center justify-between mb-6">
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <div className="relative cursor-pointer">
-                  <Avatar className="h-10 w-10 border-2 border-black">
-                    <AvatarFallback className="font-bold">OA</AvatarFallback>
-                  </Avatar>
-                  <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white bg-green-500" />
-                </div>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem className="text-destructive" onClick={logout}>
-                  Sair
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <button className="flex items-center gap-1 border-2 border-black dark:border-white px-3 py-1 font-semibold text-sm hover:bg-zinc-100 transition-colors">
-              New <ChevronDown className="h-4 w-4" />
-            </button>
-          </div>
-
+          <DropdownHeader />
           <hr className="mb-4 border-zinc-200" />
 
           <ScrollArea className="flex-1">
@@ -137,23 +108,7 @@ const Home = () => {
             </div>
           </ScrollArea>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon">
-                <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-                <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-                <span className="sr-only">Toggle theme</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => setTheme("light")}>
-                Light
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("dark")}>
-                Dark
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <DropdownTheme />
         </aside>
       </ResizablePanel>
 
