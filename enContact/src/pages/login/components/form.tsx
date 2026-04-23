@@ -74,7 +74,7 @@ const LoginForm = () => {
                     <Input
                       {...field}
                       placeholder="seu@email.com"
-                      className="w-full pl-11 pr-4 py-3 bg-input-bg border border-input-border rounded-xl text-foreground placeholder:text-placeholder text-sm font-sans focus:outline-none focus:ring-2 focus:ring-brand/40 focus:border-brand transition-all duration-200"
+                      className="w-full h-full pl-11 pr-4 py-3 bg-input-bg border border-input-border rounded-xl text-foreground placeholder:text-placeholder text-sm font-sans focus:outline-none focus:ring-2 focus:ring-brand/40 focus:border-brand transition-all duration-200"
                     />
                   </div>
                 </div>
@@ -115,7 +115,7 @@ const LoginForm = () => {
                       {...field}
                       type={showPassword ? "text" : "password"}
                       placeholder="seu@email.com"
-                      className="w-full pl-11 pr-4 py-3 bg-input-bg border border-input-border rounded-xl text-foreground placeholder:text-placeholder text-sm font-sans focus:outline-none focus:ring-2 focus:ring-brand/40 focus:border-brand transition-all duration-200"
+                      className="w-full h-full pl-11 pr-4 py-3 bg-input-bg border border-input-border rounded-xl text-foreground placeholder:text-placeholder text-sm font-sans focus:outline-none focus:ring-2 focus:ring-brand/40 focus:border-brand transition-all duration-200"
                     />
                     <button
                       onClick={() => setShowPassword(!showPassword)}
