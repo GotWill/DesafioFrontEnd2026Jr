@@ -19,7 +19,7 @@ const MainDashboard = () => {
   const [messages, setMessages] = useState<MessageItemProps[]>([
     {
       id: 1,
-      name: "Willian",
+      name: "William pereira",
       subject: "Responde ai meu",
       time: "Hoje, 11:42",
       duration: "30 min",
@@ -37,7 +37,7 @@ const MainDashboard = () => {
     },
     {
       id: 3,
-      name: "Ester",
+      name: "Ester souza",
       subject: "Responde ai meu",
       time: "Hoje, 11:42",
       duration: "30 min",
@@ -46,7 +46,7 @@ const MainDashboard = () => {
     },
     {
       id: 4,
-      name: "Rogerio",
+      name: "Rogerio Pereira",
       subject: "Responde ai meu",
       time: "Hoje, 11:42",
       duration: "30 min",

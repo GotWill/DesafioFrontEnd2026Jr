@@ -25,6 +25,10 @@ const MessageList = ({
 }: MessageItemProps) => {
   const checked = selectedIds.includes(message.id);
 
+  console.log(message.name.split(" ")[1][0]);
+
+  const name = `${message.name.split("")[0]}${message.name.split(" ")[1][0]}`;
+
   return (
     <div
       className={`flex w-full h-[100px] gap-3 p-3 border-b-2 border-black hover transition-colors  group ${checked ? "bg-green-600 text-white dark:bg-slate-700" : "hover:bg-green-500 hover:text-white dark:bg-slate-400"}`}
@@ -32,8 +36,8 @@ const MessageList = ({
       <div className="flex-shrink-0">
         {!isSelectionMode && (
           <Avatar className="h-12 w-12 border-2 border-black group-hover:hidden dark:border-white">
-            <AvatarFallback className="font-bold bg-white text-black">
-              OA
+            <AvatarFallback className="font-bold bg-white text-black uppercase">
+              {name}
             </AvatarFallback>
           </Avatar>
         )}
