@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { ChevronDown, Filter } from "lucide-react";
 import MessageList from "./message-list";
 import { useMessages } from "@/hooks/messages";
+import { MessageItemSkeleton } from "./message-skeletron";
 
 const MainDashboard = () => {
   const {
@@ -14,6 +15,7 @@ const MainDashboard = () => {
     allChecked,
     selectedIds,
     messages,
+    isLoading,
     setQuery,
     handleAllCheckedMessages,
     handleRemoveItens,
@@ -74,9 +76,13 @@ const MainDashboard = () => {
       </div>
 
       <div className="flex flex-col w-full bg-white dark:bg-transparent border-2 border-black">
-        {!messages?.subMenuItems.length && (
+        {!isLoading && !messages?.subMenuItems.length && (
           <p className="p-3">Nenhuma conversa encontrada</p>
         )}
+        {isLoading &&
+          Array.from({ length: 5 }).map((_, index) => (
+            <MessageItemSkeleton key={index} />
+          ))}
         {data?.subMenuItems &&
           messages?.subMenuItems &&
           filteredMessages.map((message) => (

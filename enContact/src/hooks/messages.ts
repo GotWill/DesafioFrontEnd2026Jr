@@ -15,7 +15,7 @@ export const useMessages = () => {
 
   const idAccount = searchParams.get("id");
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["messagesList", idAccount],
     queryFn: async () => {
       const response = await axios.get<MessageSelected>(
@@ -71,9 +71,10 @@ export const useMessages = () => {
     allChecked,
     selectedIds,
     messages,
+    isLoading,
     setQuery,
     handleSelect,
     handleRemoveItens,
     handleAllCheckedMessages,
-  }
+  };
 };
