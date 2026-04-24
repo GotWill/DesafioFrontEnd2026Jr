@@ -2,71 +2,23 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { ChevronDown, Filter } from "lucide-react";
-import { useState } from "react";
-import { useQueryState } from "nuqs";
 import MessageList from "./message-list";
-import type { MessageSelected } from "@/types";
-import { useSearchParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { useMessages } from "@/hooks/messages";
 
 const MainDashboard = () => {
-  const [messages, setMessages] = useState<MessageSelected>();
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
-  const [allChecked, setIsAllChecked] = useState(false);
-  const [query, setQuery] = useQueryState("name", { defaultValue: "" });
-  const [searchParams] = useSearchParams();
-  const isSelectionMode = selectedIds.length > 0;
-
-  const idAccount = searchParams.get("id");
-
-  const { data } = useQuery({
-    queryKey: ["messagesList", idAccount],
-    queryFn: async () => {
-      const response = await axios.get<MessageSelected | undefined>(
-        `https://my-json-server.typicode.com/EnkiGroup/DesafioFrontEnd2026Jr/items/${idAccount}`,
-      );
-      setMessages(response.data);
-      return response.data;
-    },
-    enabled: !!idAccount,
-  });
-
-  const handleSelect = (id: number) => {
-    setSelectedIds((prev) => {
-      if (prev.includes(id)) {
-        return prev.filter((item) => item !== id);
-      }
-
-      return [...prev, id];
-    });
-  };
-
-  const handleRemoveItens = (ids: number[]) => {
-    setMessages((prev) => {
-      return {
-        ...prev,
-        subMenuItems: prev.subMenuItems.filter(
-          (item) => !ids.includes(Number(item.id)),
-        ),
-      };
-    });
-    setSelectedIds([]);
-  };
-
-  const handleAllCheckedMessages = () => {
-    const newValue = !allChecked;
-    setIsAllChecked(newValue);
-    if (newValue) {
-      setSelectedIds(messages.subMenuItems.map((item) => Number(item.id)));
-    } else {
-      setSelectedIds([]);
-    }
-  };
-
-  const filteredMessages = messages?.subMenuItems.filter((msg) =>
-    msg.name.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
-  );
+  const {
+    query,
+    isSelectionMode,
+    filteredMessages,
+    data,
+    allChecked,
+    selectedIds,
+    messages,
+    setQuery,
+    handleAllCheckedMessages,
+    handleRemoveItens,
+    handleSelect,
+  } = useMessages();
 
   return (
     <div>
@@ -125,7 +77,8 @@ const MainDashboard = () => {
         {!messages?.subMenuItems.length && (
           <p className="p-3">Nenhuma conversa encontrada</p>
         )}
-        {data?.id && messages?.subMenuItems &&
+        {data?.subMenuItems &&
+          messages?.subMenuItems &&
           filteredMessages.map((message) => (
             <MessageList
               key={`${message.id}-message`}
