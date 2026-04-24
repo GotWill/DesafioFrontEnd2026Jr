@@ -1,0 +1,8 @@
+services:
+  app:
+    container_name: enContact
+    image: en_contact:v1
+    build: ./enContact
+    ports:
+    - "3000:3000"
+    

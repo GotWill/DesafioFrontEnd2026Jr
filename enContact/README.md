@@ -1,73 +1,34 @@
-# React + TypeScript + Vite
+## 🚀 Funcionalidades Extras
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Além dos requisitos básicos, foram implementadas as seguintes melhorias:
 
-Currently, two official plugins are available:
+* **Bulk Selection (Seleção em Massa):** Opção de selecionar todos os itens de uma lista simultaneamente para ações rápidas.
+* **Filtro por Nomes:** Sistema de busca dinâmica que permite filtrar contas.
+* **Gestão de Caixas de Entrada:** Interface preparada para a criação e organização de novas pastas e categorias.
+* **Layout Responsivo & Travado:** Otimização para mobile onde o redimensionamento de painéis é desabilitado para evitar falhas de UX em telas pequenas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tech Stack
 
-## React Compiler
+* **React** com **TypeScript**
+* **TanStack Query (React Query)** para gerenciamento de estado e cache de API
+* **Tailwind CSS** para estilização responsiva
+* **Shadcn/UI** para componentes de interface acessíveis
+* **Axios** para integração com serviços externos
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🔐 Credenciais de Acesso
 
-## Expanding the ESLint configuration
+Para visualizar a aplicação em funcionamento, utilize os dados de login abaixo:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Campo    | Credencial           |
+| :------- | :------------------- |
+| **E-mail** | `admin@gmail.com`    |
+| **Senha** | `12345678`           |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## ⚙️ Como executar o projeto
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+docker compose up -d
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Acesse -> http://localhost:3000
