@@ -24,9 +24,6 @@ const MessageList = ({
   selectedIds,
 }: MessageItemProps) => {
   const checked = selectedIds.includes(message.id);
-
-  console.log(message.name.split(" ")[1][0]);
-
   const name = `${message.name.split("")[0]}${message.name.split(" ")[1][0]}`;
 
   return (

@@ -3,6 +3,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { ChevronDown, Filter } from "lucide-react";
 import { useState } from "react";
+import { useQueryState } from "nuqs";
 import MessageList from "./message-list";
 
 interface MessageItemProps {
@@ -55,6 +56,7 @@ const MainDashboard = () => {
   ]);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [allChecked, setIsAllChecked] = useState(false);
+  const [query, setQuery] = useQueryState("name", { defaultValue: "" });
   const isSelectionMode = selectedIds.length > 0;
 
   const handleSelect = (id: number) => {
@@ -84,11 +86,17 @@ const MainDashboard = () => {
     }
   };
 
+  const filteredMessages = messages.filter((msg) =>
+    msg.name.toLowerCase().includes(query.toLowerCase()),
+  );
+
   return (
     <div>
       <div className="w-full  p-4 space-y-4 bg-white dark:bg-transparent border border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
         <div className="relative">
           <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
             placeholder="Pesquisar"
             className="w-full h-10 border-2 border-black rounded-none pr-10 focus-visible:ring-0 focus-visible:ring-offset-0 font-medium"
           />
@@ -136,7 +144,7 @@ const MainDashboard = () => {
       </div>
 
       <div className="flex flex-col w-full bg-white dark:bg-transparent border-2 border-black">
-        {messages.map((message) => (
+        {filteredMessages.map((message) => (
           <MessageList
             key={message.id}
             message={message}
