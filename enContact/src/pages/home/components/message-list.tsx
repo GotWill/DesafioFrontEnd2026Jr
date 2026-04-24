@@ -37,7 +37,6 @@ const MessageList = ({
         <Checkbox
           checked={checked}
           onCheckedChange={() => {
-            console.log("clicou", message.menus.id);
             handleSetItem(Number(message.menus.id));
           }}
           className={` rounded-full h-8 w-8  transition-all duration-200 ease-in-out opacity-0 scale-75 pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto

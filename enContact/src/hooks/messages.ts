@@ -1,6 +1,6 @@
+import { api } from "@/lib/api";
 import type { MessageSelected } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -18,9 +18,7 @@ export const useMessages = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["messagesList", idAccount],
     queryFn: async () => {
-      const response = await axios.get<MessageSelected>(
-        `https://my-json-server.typicode.com/EnkiGroup/DesafioFrontEnd2026Jr/items/${idAccount}`,
-      );
+      const response = await api.get<MessageSelected>(`/items/${idAccount}`);
       setMessages(response.data);
       return response.data;
     },

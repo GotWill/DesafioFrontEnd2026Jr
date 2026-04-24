@@ -7,7 +7,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { MoreVertical } from "lucide-react";
 import AccountList from "./components/account-list";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Skeleton } from "@/components/ui/skeleton";
 import MainDashboard from "./components/main-dashboard";
 import { useContext, useEffect, useState } from "react";
@@ -15,6 +14,7 @@ import { userContext } from "@/context/user";
 import { useNavigate } from "react-router-dom";
 import DropdownTheme from "./components/dropdown-theme";
 import DropdownHeader from "./components/dropdown-header";
+import { api } from "@/lib/api";
 
 interface MessageReponse {
   id: number;
@@ -40,9 +40,7 @@ const Home = () => {
   const { isLoading } = useQuery({
     queryKey: ["accounts"],
     queryFn: async () => {
-      const response = await axios.get(
-        "https://my-json-server.typicode.com/EnkiGroup/DesafioFrontEnd2026Jr/menus",
-      );
+      const response = await api.get("/menus");
 
       const reponseData = response.data as MessageReponse[];
       const result = reponseData.map((menu) => ({
