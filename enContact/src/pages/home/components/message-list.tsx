@@ -48,7 +48,7 @@ const MessageList = ({
       <div className="flex flex-col justify-between flex-1 min-w-0">
         <div className="flex justify-between items-center">
           <span className="font-bold text-[15px]">{message.menus.name}</span>
-          <span className="text-[11px] font-medium">time</span>
+          <span className="text-[11px] font-medium">Hoje, 11:42</span>
         </div>
 
         <div className="flex justify-between items-center">

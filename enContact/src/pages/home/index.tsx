@@ -70,22 +70,24 @@ const Home = () => {
     return null;
   }
 
+  const pageHeight = window.screen.height;
+
   return (
     <ResizablePanelGroup
-      orientation="horizontal"
-      className="min-h-screen border"
+      orientation={pageHeight > 768 ? "horizontal" : "vertical"}
+      className="flex flex-col md:flex-row  min-h-screen border"
     >
       <ResizablePanel
         defaultSize={20}
-        minSize={300}
-        maxSize={500}
+        minSize={pageHeight > 768 ? 300 : 250}
+        maxSize={pageHeight > 768 ? 500 : 250}
         className="bg-white dark:bg-background"
       >
-        <aside className="flex h-full flex-col p-4">
+        <aside className="flex flex-col md:p-4 h-full">
           <DropdownHeader handleAddAccount={handleAddAccount} />
           <hr className="mb-4 border-zinc-200" />
 
-          <ScrollArea className="flex-1">
+          <ScrollArea className="flex-1 max-h-full">
             <div className="space-y-4">
               <div className="flex items-center justify-between text-sm font-medium px-2">
                 <div className="flex items-center gap-2">
@@ -117,8 +119,11 @@ const Home = () => {
               ) : (
                 <div className="space-y-1">
                   <div className="flex flex-col gap-1">
-                    {accounts?.map((item,index) => (
-                      <AccountList key={`account-${item.id}-${index}`} fileItem={item} />
+                    {accounts?.map((item, index) => (
+                      <AccountList
+                        key={`account-${item.id}-${index}`}
+                        fileItem={item}
+                      />
                     ))}
                   </div>
                 </div>
