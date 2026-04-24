@@ -4,14 +4,11 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import type { FileTreeItem } from "@/types";
 import { ChevronRightIcon, FolderIcon } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 
-type FileTreeItem = {
-  id: number;
-  name: string;
-  items: { id: number; name: string }[];
-};
+
 
 interface AccountListProps {
   fileItem: FileTreeItem;

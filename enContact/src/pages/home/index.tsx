@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import DropdownTheme from "./components/dropdown-theme";
 import DropdownHeader from "./components/dropdown-header";
 import { api } from "@/lib/api";
+import type { FileTreeItem } from "@/types";
 
 interface MessageReponse {
   id: number;
@@ -25,11 +26,7 @@ interface MessageReponse {
   }[];
 }
 
-type FileTreeItem = {
-  id: number;
-  name: string;
-  items: { id: number; name: string }[];
-};
+
 
 const Home = () => {
   const { isAutentincated } = useContext(userContext);
