@@ -5,19 +5,11 @@ import { ChevronDown, Filter } from "lucide-react";
 import { useState } from "react";
 import { useQueryState } from "nuqs";
 import MessageList from "./message-list";
+import type { MessageItem } from "@/types";
 
-interface MessageItemProps {
-  id: number;
-  name: string;
-  subject: string;
-  time: string;
-  duration: string;
-  count?: number;
-  avatarsCount: number;
-}
 
 const MainDashboard = () => {
-  const [messages, setMessages] = useState<MessageItemProps[]>([
+  const [messages, setMessages] = useState<MessageItem[]>([
     {
       id: 1,
       name: "William pereira",

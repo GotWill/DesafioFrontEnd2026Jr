@@ -1,17 +1,10 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
+import type { MessageItem } from "@/types";
 import { MessageSquareMore } from "lucide-react";
 
 interface MessageItemProps {
-  message: {
-    id: number;
-    name: string;
-    subject: string;
-    time: string;
-    duration: string;
-    count?: number;
-    avatarsCount: number;
-  };
+  message: MessageItem;
   selectedIds: number[];
   isSelectionMode: boolean;
   handleSetItem: (id: number) => void;

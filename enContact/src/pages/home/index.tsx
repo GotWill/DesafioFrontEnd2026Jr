@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Skeleton } from "@/components/ui/skeleton";
 import MainDashboard from "./components/main-dashboard";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { userContext } from "@/context/user";
 import { useNavigate } from "react-router-dom";
 import DropdownTheme from "./components/dropdown-theme";
@@ -25,12 +25,19 @@ interface MessageReponse {
   }[];
 }
 
+type FileTreeItem = {
+  id: number;
+  name: string;
+  items: { id: number; name: string }[];
+};
+
 const Home = () => {
   const { isAutentincated } = useContext(userContext);
+  const [accounts, setAccounts] = useState<FileTreeItem[]>([]);
 
   const navigate = useNavigate();
 
-  const { data, isLoading } = useQuery({
+  const { isLoading } = useQuery({
     queryKey: ["accounts"],
     queryFn: async () => {
       const response = await axios.get(
@@ -38,13 +45,20 @@ const Home = () => {
       );
 
       const reponseData = response.data as MessageReponse[];
-      return reponseData.map((menu) => ({
+      const result = reponseData.map((menu) => ({
         ...menu,
         items: menu.subMenus,
       }));
+
+      setAccounts(result);
+      return result;
     },
     enabled: !!isAutentincated,
   });
+
+  const handleAddAccount = (data: FileTreeItem) => {
+    setAccounts([...accounts, data]);
+  };
 
   useEffect(() => {
     if (!isAutentincated) {
@@ -68,7 +82,7 @@ const Home = () => {
         className="bg-white dark:bg-background"
       >
         <aside className="flex h-full flex-col p-4">
-          <DropdownHeader />
+          <DropdownHeader handleAddAccount={handleAddAccount} />
           <hr className="mb-4 border-zinc-200" />
 
           <ScrollArea className="flex-1">
@@ -79,7 +93,11 @@ const Home = () => {
                   <MoreVertical className="h-4 w-4 text-zinc-400" />
                 </div>
                 <span className="text-zinc-500 dark:text-white">
-                  {isLoading ? <Skeleton className="h-4 w-2" /> : data?.length}
+                  {isLoading ? (
+                    <Skeleton className="h-4 w-2" />
+                  ) : (
+                    accounts?.length
+                  )}
                 </span>
               </div>
 
@@ -99,7 +117,7 @@ const Home = () => {
               ) : (
                 <div className="space-y-1">
                   <div className="flex flex-col gap-1">
-                    {data?.map((item) => (
+                    {accounts?.map((item) => (
                       <AccountList key={item.id} fileItem={item} />
                     ))}
                   </div>

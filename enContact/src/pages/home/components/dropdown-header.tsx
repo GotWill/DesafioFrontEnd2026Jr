@@ -1,15 +1,23 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { userContext } from "@/context/user";
-import { ChevronDown } from "lucide-react";
-import { useContext } from "react";
 
-const DropdownHeader = () => {
+import { useContext } from "react";
+import DialogForm from "./dialog-form";
+import { userContext } from "@/context/user";
+import type { FileTreeItem } from "@/types";
+
+
+interface DropdownHeaderProps {
+  handleAddAccount: (data: FileTreeItem) => void;
+}
+
+const DropdownHeader = ({ handleAddAccount }: DropdownHeaderProps) => {
   const { logout } = useContext(userContext);
 
   return (
@@ -30,9 +38,7 @@ const DropdownHeader = () => {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <button className="flex items-center gap-1 border-2 dark:hover:text-black border-black dark:border-white px-3 py-1 font-semibold text-sm hover:bg-zinc-100 transition-colors">
-        New <ChevronDown className="h-4 w-4" />
-      </button>
+      <DialogForm handleAddAccount={handleAddAccount} />
     </div>
   );
 };
