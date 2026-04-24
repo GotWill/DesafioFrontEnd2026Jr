@@ -18,8 +18,7 @@ interface AccountListProps {
 }
 
 const AccountList = ({ fileItem }: AccountListProps) => {
-  const [,setSearchParams] = useSearchParams();
-
+  const [, setSearchParams] = useSearchParams();
   const handleSetId = (id: number) => {
     setSearchParams({ id: String(id) });
   };
@@ -42,6 +41,7 @@ const AccountList = ({ fileItem }: AccountListProps) => {
           <div className="flex flex-col gap-1">
             {fileItem.items.map((item) => (
               <button
+                key={item.id}
                 className="text-left cursor-pointer"
                 onClick={() => handleSetId(item.id)}
               >

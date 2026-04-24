@@ -125,10 +125,10 @@ const MainDashboard = () => {
         {!messages?.subMenuItems.length && (
           <p className="p-3">Nenhuma conversa encontrada</p>
         )}
-        {messages?.subMenuItems &&
-          filteredMessages.map((message, index) => (
+        {data?.id && messages?.subMenuItems &&
+          filteredMessages.map((message) => (
             <MessageList
-              key={Number(message.id) * index}
+              key={`${message.id}-message`}
               message={{ id: data.id, menus: message }}
               isSelectionMode={isSelectionMode}
               handleSetItem={handleSelect}

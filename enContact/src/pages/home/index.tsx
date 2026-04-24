@@ -51,7 +51,7 @@ const Home = () => {
       }));
 
       setAccounts(result);
-      return result
+      return result;
     },
     enabled: !!isAutentincated,
   });
@@ -105,10 +105,10 @@ const Home = () => {
                 <div className="flex flex-col">
                   {Array.from({ length: 5 }).map((_, index) => (
                     <div
-                      key={index}
+                      key={`skeleton-row-${index}`}
                       className="flex items-center gap-3 p-2 pl-4"
                     >
-                      <Skeleton key={index} className="h-4 w-4 rounded" />
+                      <Skeleton className="h-4 w-4 rounded" />
                       <Skeleton className="h-5 w-5 rounded" />
                       <Skeleton className="h-4 w-32 rounded" />
                     </div>
@@ -117,8 +117,8 @@ const Home = () => {
               ) : (
                 <div className="space-y-1">
                   <div className="flex flex-col gap-1">
-                    {accounts?.map((item) => (
-                      <AccountList key={item.id} fileItem={item} />
+                    {accounts?.map((item,index) => (
+                      <AccountList key={`account-${item.id}-${index}`} fileItem={item} />
                     ))}
                   </div>
                 </div>
