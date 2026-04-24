@@ -16,15 +16,19 @@ export const userContext = createContext({} as State);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User>();
-  const [isAutentincated, setIsAutentincated] = useState(false);
+  const [isAutentincated, setIsAutentincated] = useState(
+    JSON.parse(localStorage.getItem("isAutentincated")) ?? false,
+  );
 
   const handleAddUser = (user: User) => {
     setUser(user);
+    localStorage.setItem("isAutentincated", "true");
     setIsAutentincated(true);
   };
 
   const logout = () => {
     setUser(null);
+    localStorage.setItem("isAutentincated", "false");
     setIsAutentincated(false);
   };
 
