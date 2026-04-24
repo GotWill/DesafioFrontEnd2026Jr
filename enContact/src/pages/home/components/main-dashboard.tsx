@@ -5,51 +5,32 @@ import { ChevronDown, Filter } from "lucide-react";
 import { useState } from "react";
 import { useQueryState } from "nuqs";
 import MessageList from "./message-list";
-import type { MessageItem } from "@/types";
-
+import type { MessageSelected } from "@/types";
+import { useSearchParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const MainDashboard = () => {
-  const [messages, setMessages] = useState<MessageItem[]>([
-    {
-      id: 1,
-      name: "William pereira",
-      subject: "Responde ai meu",
-      time: "Hoje, 11:42",
-      duration: "30 min",
-      count: 2,
-      avatarsCount: 3,
-    },
-    {
-      id: 2,
-      name: "Agnaldo Barbosa",
-      subject: "Responde ai meu",
-      time: "Hoje, 11:42",
-      duration: "30 min",
-      count: 5,
-      avatarsCount: 3,
-    },
-    {
-      id: 3,
-      name: "Ester souza",
-      subject: "Responde ai meu",
-      time: "Hoje, 11:42",
-      duration: "30 min",
-      count: 6,
-      avatarsCount: 3,
-    },
-    {
-      id: 4,
-      name: "Rogerio Pereira",
-      subject: "Responde ai meu",
-      time: "Hoje, 11:42",
-      duration: "30 min",
-      avatarsCount: 3,
-    },
-  ]);
+  const [messages, setMessages] = useState<MessageSelected>();
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [allChecked, setIsAllChecked] = useState(false);
   const [query, setQuery] = useQueryState("name", { defaultValue: "" });
+  const [searchParams] = useSearchParams();
   const isSelectionMode = selectedIds.length > 0;
+
+  const idAccount = searchParams.get("id");
+
+  const { data } = useQuery({
+    queryKey: ["messagesList", idAccount],
+    queryFn: async () => {
+      const response = await axios.get<MessageSelected | undefined>(
+        `https://my-json-server.typicode.com/EnkiGroup/DesafioFrontEnd2026Jr/items/${idAccount}`,
+      );
+      setMessages(response.data);
+      return response.data;
+    },
+    enabled: !!idAccount,
+  });
 
   const handleSelect = (id: number) => {
     setSelectedIds((prev) => {
@@ -63,7 +44,12 @@ const MainDashboard = () => {
 
   const handleRemoveItens = (ids: number[]) => {
     setMessages((prev) => {
-      return prev.filter((item) => !ids.includes(item.id));
+      return {
+        ...prev,
+        subMenuItems: prev.subMenuItems.filter(
+          (item) => !ids.includes(Number(item.id)),
+        ),
+      };
     });
     setSelectedIds([]);
   };
@@ -72,14 +58,14 @@ const MainDashboard = () => {
     const newValue = !allChecked;
     setIsAllChecked(newValue);
     if (newValue) {
-      setSelectedIds(messages.map((item) => item.id));
+      setSelectedIds(messages.subMenuItems.map((item) => Number(item.id)));
     } else {
       setSelectedIds([]);
     }
   };
 
-  const filteredMessages = messages.filter((msg) =>
-    msg.name.toLowerCase().includes(query.toLowerCase()),
+  const filteredMessages = messages?.subMenuItems.filter((msg) =>
+    msg.name.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
   );
 
   return (
@@ -136,15 +122,19 @@ const MainDashboard = () => {
       </div>
 
       <div className="flex flex-col w-full bg-white dark:bg-transparent border-2 border-black">
-        {filteredMessages.map((message) => (
-          <MessageList
-            key={message.id}
-            message={message}
-            isSelectionMode={isSelectionMode}
-            handleSetItem={handleSelect}
-            selectedIds={selectedIds}
-          />
-        ))}
+        {!messages?.subMenuItems.length && (
+          <p className="p-3">Nenhuma conversa encontrada</p>
+        )}
+        {messages?.subMenuItems &&
+          filteredMessages.map((message, index) => (
+            <MessageList
+              key={Number(message.id) * index}
+              message={{ id: data.id, menus: message }}
+              isSelectionMode={isSelectionMode}
+              handleSetItem={handleSelect}
+              selectedIds={selectedIds}
+            />
+          ))}
       </div>
     </div>
   );

@@ -68,7 +68,7 @@ const DialogForm = ({ handleAddAccount }: DialogFormProps) => {
   };
   return (
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button>
           New <ChevronDown className="h-4 w-4" />
         </Button>

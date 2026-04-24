@@ -51,7 +51,7 @@ const Home = () => {
       }));
 
       setAccounts(result);
-      return result;
+      return result
     },
     enabled: !!isAutentincated,
   });

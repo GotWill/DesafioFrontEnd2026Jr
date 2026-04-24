@@ -13,3 +13,16 @@ export interface MessageItem {
   count?: number;
   avatarsCount: number;
 }
+
+export interface SubMenuItems {
+  id: string;
+  name: string;
+  subject: string;
+  owner: string;
+  users: string[];
+}
+
+export interface MessageSelected {
+  id: number;
+  subMenuItems: SubMenuItems[];
+}

@@ -5,6 +5,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { ChevronRightIcon, FolderIcon } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 
 type FileTreeItem = {
   id: number;
@@ -17,6 +18,12 @@ interface AccountListProps {
 }
 
 const AccountList = ({ fileItem }: AccountListProps) => {
+  const [,setSearchParams] = useSearchParams();
+
+  const handleSetId = (id: number) => {
+    setSearchParams({ id: String(id) });
+  };
+
   if ("items" in fileItem) {
     return (
       <Collapsible key={fileItem.name} className="group">
@@ -34,9 +41,12 @@ const AccountList = ({ fileItem }: AccountListProps) => {
         <CollapsibleContent className="mt-1 ml-5 style-lyra:ml-4">
           <div className="flex flex-col gap-1">
             {fileItem.items.map((item) => (
-              <p className="text-sm dark:text-white" key={item.id}>
+              <button
+                className="text-left cursor-pointer"
+                onClick={() => handleSetId(item.id)}
+              >
                 {item.name}
-              </p>
+              </button>
             ))}
           </div>
         </CollapsibleContent>
