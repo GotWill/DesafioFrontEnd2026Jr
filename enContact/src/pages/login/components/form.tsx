@@ -39,13 +39,13 @@ const LoginForm = () => {
     },
   });
 
-  const { setUser } = useContext(userContext);
+  const { signin } = useContext(userContext);
 
   const handleForm = ({ email, password }: FormSchema) => {
     if (email === "admin@gmail.com" && password === "12345678") {
       setIsloading(true);
       setTimeout(() => {
-        setUser({ email });
+        signin({ email });
         navigate("/");
       }, 2000);
       return;

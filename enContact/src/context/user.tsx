@@ -7,7 +7,7 @@ interface User {
 interface State {
   user: User;
   isAutentincated: boolean;
-  setUser: (user: User) => void;
+  signin: (user: User) => void;
   logout: () => void;
 }
 
@@ -15,26 +15,31 @@ interface State {
 export const userContext = createContext({} as State);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User>();
+  const [user, signin] = useState<User>();
   const [isAutentincated, setIsAutentincated] = useState(
     JSON.parse(localStorage.getItem("isAutentincated")) ?? false,
   );
 
-  const handleAddUser = (user: User) => {
-    setUser(user);
+  const handleSignin = (user: User) => {
+    signin(user);
     localStorage.setItem("isAutentincated", "true");
     setIsAutentincated(true);
   };
 
-  const logout = () => {
-    setUser(null);
+  const handleLogout = () => {
+    signin(null);
     localStorage.setItem("isAutentincated", "false");
     setIsAutentincated(false);
   };
 
   return (
     <userContext.Provider
-      value={{ user, isAutentincated, setUser: handleAddUser, logout }}
+      value={{
+        user,
+        isAutentincated,
+        signin: handleSignin,
+        logout: handleLogout,
+      }}
     >
       {children}
     </userContext.Provider>
