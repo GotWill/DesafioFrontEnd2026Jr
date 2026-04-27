@@ -33,7 +33,7 @@ const MessageList = ({
       
       {!isSelectionMode && (
         <Avatar 
-          className={`h-12 w-12 border-2 border-black dark:border-white transition-opacity duration-200 
+          className={`h-8 w-8 border-2 border-black dark:border-white transition-opacity duration-200 
             ${checked ? "opacity-0" : "opacity-100 group-hover:opacity-0"}`}
         >
           <AvatarFallback className="font-bold bg-white text-black uppercase">
