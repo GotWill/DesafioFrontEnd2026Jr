@@ -21,7 +21,7 @@ const DropdownHeader = ({ handleAddAccount }: DropdownHeaderProps) => {
   const { logout } = useContext(userContext);
 
   return (
-    <div className="p-4 md:px-0flex items-center justify-between mb-6">
+    <div className="p-4 md:px-0 flex items-center justify-between mb-6">
       <DropdownMenu>
         <DropdownMenuTrigger>
           <div className="relative cursor-pointer">
